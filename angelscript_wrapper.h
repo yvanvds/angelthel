@@ -2,7 +2,7 @@
 #include "contextmgr/contextmgr.h"
 #include "debugger/debugger.h"
 #include "scriptany/scriptany.h"
-#include "scriptarray/scriptarry.h"
+#include "scriptarray/scriptarray.h"
 #include "scriptbuilder/scriptbuilder.h"
 #include "scriptdictionary/scriptdictionary.h"
 #include "scriptfile/scriptfile.h"
