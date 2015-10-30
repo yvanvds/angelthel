@@ -1,0 +1,35 @@
+Using Angelscript with Esenthel
+===============================
+
+1. Compiling Angelscript
+------------------------
+
+First, get the source code from http://www.angelcode.com/angelscript/
+
+Create a static library with angelscript. Angelscript also
+provides a lot of addons which can be useful. Because of the nature
+of the esenthel editor, it is easier to compile these with the library.
+
+This can be done by adding all addon code to the angelscript project in MSVC.
+
+After compiling, put the library, along with angelscript.h in an easy to reach
+directory. I'll use C:/angelscript as an example. You should also put the header
+files of the addon's in there.
+
+2. create a wrapper header file
+-------------------------------
+Copy the file angelscript_wrapper.h to C:/angelscript
+
+3. Add Angelscript to your project
+----------------------------------
+
+Open the application properties and add:
+
+Include Libraries  : C:\angelscript\angelscript.lib
+Include Directories: C:\angelscript
+Include Headers    : C:\angelscript\angelscript_wrapper.h
+
+The example project already has these includes, but you might want to double check
+the path. 
+
+To use this in your own project, copy the green angelscript library folder to your project.

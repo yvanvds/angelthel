@@ -1,0 +1,18 @@
+#include "angelscript.h"
+#include "contextmgr/contextmgr.h"
+#include "debugger/debugger.h"
+#include "scriptany/scriptany.h"
+#include "scriptarray/scriptarry.h"
+#include "scriptbuilder/scriptbuilder.h"
+#include "scriptdictionary/scriptdictionary.h"
+#include "scriptfile/scriptfile.h"
+#include "scriptfile/scriptfilesystem.h"
+#include "scriptgrid/scriptgrid.h"
+#include "scripthandle/scripthandle.h"
+#include "scripthelper/scripthelper.h"
+#include "scriptmath/scriptmath.h"
+#include "scriptmath/scriptmathcomplex.h"
+#include "serializer/serializer.h"
+#include "weakref/weakref.h"
+
+#define AS_ASSERT(r)DYNAMIC_ASSERT(r,"Error");
