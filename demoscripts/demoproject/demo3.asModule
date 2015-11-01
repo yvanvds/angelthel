@@ -1,0 +1,7 @@
+﻿properties=
+{
+	moduleName=demo3
+	scripts=2
+	script=demo3_script1.as
+	script=demo2_script2.as
+}
