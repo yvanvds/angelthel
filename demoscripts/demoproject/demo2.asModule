@@ -1,8 +1,0 @@
-﻿properties=
-{
-	moduleName
-	scripts=3
-	script=demo2_script1.as
-	script=demo2_script2.as
-	script=`..\test1.as`
-}
