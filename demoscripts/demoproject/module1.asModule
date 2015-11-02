@@ -1,6 +1,7 @@
 ﻿properties=
 {
 	moduleName=module1
-	scripts=1
+	scripts=2
 	script=main.as
+	script=second.as
 }
