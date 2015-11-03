@@ -1,6 +1,6 @@
 ﻿properties=
 {
-	moduleName
+	moduleName=`module 2`
 	scripts=1
 	script=`..\test1.as`
 }
