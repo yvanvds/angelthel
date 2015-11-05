@@ -1,6 +1,6 @@
 ﻿
-// this is a comment
-
+// this is a comment that will be very long because we have to test the text offset.
+// this is also a long comment to see what happens if we changes lines with offset.
 int counter = 0;
 const Str S = "";
 Flt posX = 1;
