@@ -1,0 +1,6 @@
+﻿properties=
+{
+	moduleName=`color class test`
+	scripts=1
+	script=main.as
+}

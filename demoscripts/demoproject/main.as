@@ -12,7 +12,7 @@ void Init() {
 
 void Update() {
    if(Kb.bp(KB_SPACE)) counter++;
-   
+   if(Ms.bp(0)) counter = 0;
    posX -= Time.ad();
    if (posX < -1) {
       posX = 1;

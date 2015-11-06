@@ -1,0 +1,6 @@
+﻿properties=
+{
+	moduleName=`player control`
+	scripts=1
+	script=pc.as
+}
