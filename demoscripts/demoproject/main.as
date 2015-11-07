@@ -5,9 +5,11 @@ int counter = 0;
 const Str S = "";
 Flt posX = 1;
 Flt posY = 0;
+Edge2 line;
 
 void Init() {
    counter = 0;
+   line.set(-0.7f, 0.0f, 0.0f, 0.7f);
 }
 
 void Update() {
@@ -22,6 +24,7 @@ void Update() {
 
 void Draw() {
    text(posX, posY, S + "Counter: " + counter);
+   //line.draw(Color(255,0,0));
 }
 
 void SetPosY(Flt value) {
