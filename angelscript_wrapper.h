@@ -57,6 +57,8 @@
   Macro's for public use start here
 ****************************************************************************/
 
+#define DEFINE_FORWARD(name) AS_ASSERT(RegClass<name>(STRING(name), asOBJ_VALUE | asOBJ_APP_CLASS_CDAK | asOBJ_POD))
+
 // Before adding a class, use undef and define to set the class name.
 // Example use:
 //    #undef AS_CLASS
@@ -97,16 +99,16 @@
 
 // add class method with arguments. Here the second argument should contain the method's arguments.
 // Example use: ADD_METHOD_ARG(set, (C Vec &in), Vec&); to pass a native Vec method `Vec & Vec::set(C Vec &);'
-#define ADD_METHOD_ARG(name, arg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(arg), asMETHODPR(AS_CLASS, name, arg, result)))
+//#define ADD_METHOD_ARG(name, arg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(arg), asMETHODPR(AS_CLASS, name, arg, result)))
 
-#define ADD_CONST_METHOD_ARG(name, arg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(arg) + " const", asMETHODPR(AS_CLASS, name, arg, result)))
+//#define ADD_CONST_METHOD_ARG(name, arg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(arg) + " const", asMETHODPR(AS_CLASS, name, arg const, result)))
 
 // add class method that requires default arguments (defaults must be set in scriptArg). When dealing with default
 // arguments the argument list must be entered twice, first with, then without the default arguments.
 // Example use: ADD_METHOD_ARG_DEFAULT(set, (Byte, Byte = 255), (Byte, Byte), Color&)
-#define ADD_METHOD_ARG_DEFAULT(name, scriptArg, nativeArg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(scriptArg), asMETHODPR(AS_CLASS, name, nativeArg, result)))
+#define ADD_METHOD_ARG(name, scriptArg, nativeArg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(scriptArg), asMETHODPR(AS_CLASS, name, nativeArg, result)))
 
-#define ADD_CONST_METHOD_ARG_DEFAULT(name, scriptArg, nativeArg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(scriptArg) + " const", asMETHODPR(AS_CLASS, name, nativeArg, result)))
+#define ADD_CONST_METHOD_ARG(name, scriptArg, nativeArg, result) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(result) + " " + STRING(name) + STRING(scriptArg) + " const", asMETHODPR(AS_CLASS, name, nativeArg const, result)))
 
 // Add a class property.
 // Example use: ADD_PROPERTY(r, Byte); to pass the class property r of type Byte
@@ -116,9 +118,32 @@
 // Example use: ADD_OBJECT(Ms); Could refer to the engine's object Ms of the class Mouse.
 #define ADD_OBJECT(name)       AS_ASSERT(RegGlobalProperty(S + STRING(AS_CLASS) + " " + STRING(name), &name))
 
+#define ADD_CONST_OBJECT(name) AS_ASSERT(RegGlobalProperty(S + "const" + STRING(AS_CLASS) + " " + STRING(name), &name))
+
 // Register existing operator with the class
 #define ADD_OPP_EQUALS() AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + "bool opEquals(const " + STRING(AS_CLASS) + " &in) const", asMETHOD  (AS_CLASS, operator==)))
 #define ADD_OPP_ASSIGN() AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " &opAssign(const "    + STRING(AS_CLASS) + " &in)"      , asMETHODPR(AS_CLASS, operator =, (C AS_CLASS&), AS_CLASS&)))
 
+#define ADD_OPP_ADD_ASSIGN(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " &opAddAssign(" + STRING(scriptArg) + ")", asMETHODPR(AS_CLASS, operator+=, (nativeArg), AS_CLASS&)))
+#define ADD_OPP_SUB_ASSIGN(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " &opSubAssign(" + STRING(scriptArg) + ")", asMETHODPR(AS_CLASS, operator-=, (nativeArg), AS_CLASS&)))
+#define ADD_OPP_MUL_ASSIGN(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " &opMulAssign(" + STRING(scriptArg) + ")", asMETHODPR(AS_CLASS, operator*=, (nativeArg), AS_CLASS&)))
+#define ADD_OPP_DIV_ASSIGN(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " &opDivAssign(" + STRING(scriptArg) + ")", asMETHODPR(AS_CLASS, operator/=, (nativeArg), AS_CLASS&)))
+
+#define ADD_OPP_ADD(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opAdd(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator+, (C AS_CLASS &, nativeArg), AS_CLASS), asCALL_CDECL_OBJFIRST))
+#define ADD_OPP_SUB(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opSub(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator-, (C AS_CLASS &, nativeArg), AS_CLASS), asCALL_CDECL_OBJFIRST))
+#define ADD_OPP_MUL(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opMul(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator*, (C AS_CLASS &, nativeArg), AS_CLASS), asCALL_CDECL_OBJFIRST))
+#define ADD_OPP_DIV(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opDiv(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator/, (C AS_CLASS &, nativeArg), AS_CLASS), asCALL_CDECL_OBJFIRST))
+
+#define ADD_OPP_ADD_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opAdd_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator+, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
+#define ADD_OPP_SUB_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opSub_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator-, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
+#define ADD_OPP_MUL_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opMul_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator*, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
+#define ADD_OPP_DIV_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opDiv_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator/, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
+
 #define GLOBAL_FUNC(script,native)       AS_ASSERT(RegGlobalFunc(script, asFUNCTION   native, asCALL_CDECL))
 #define GLOBAL_FUNC_ARG(script, native)  AS_ASSERT(RegGlobalFunc(script, asFUNCTIONPR native, asCALL_CDECL))
+
+
+// Register an enumeration type
+#define START_ENUM(name) { C Str8 EN = STRING(name); AS_ASSERT(RegEnum(STRING(name))
+#define ADD_EVAL(name) AS_ASSERT(RegEnumVal(EN, STRING(name), name))
+#define END_ENUM() }
