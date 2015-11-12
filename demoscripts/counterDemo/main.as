@@ -7,7 +7,7 @@ Edge2 line1, line2;
 void Init() {
    counter = 0;
    line1.set(-0.7, -0.1, 0.7, -0.1);
-   line2.set(-0.7,  0.1, 0.7,  0.1);
+   line2.st(-0.7,  0.1, 0.7,  0.1);
 }
 
 void Update() {

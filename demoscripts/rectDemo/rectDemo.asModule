@@ -1,0 +1,6 @@
+﻿properties=
+{
+	moduleName
+	scripts=1
+	script=main.as
+}
