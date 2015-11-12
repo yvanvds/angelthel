@@ -139,9 +139,8 @@
 #define ADD_OPP_MUL_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opMul_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator*, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
 #define ADD_OPP_DIV_R(scriptArg, nativeArg) AS_ASSERT(RegClassMethod(STRING(AS_CLASS), S + STRING(AS_CLASS) + " opDiv_r(" + STRING(scriptArg) + ")", asFUNCTIONPR(operator/, (nativeArg, C AS_CLASS &), AS_CLASS), asCALL_CDECL_OBJLAST))
 
-#define GLOBAL_FUNC(script,native)       AS_ASSERT(RegGlobalFunc(script, asFUNCTION   native, asCALL_CDECL))
-#define GLOBAL_FUNC_ARG(script, native)  AS_ASSERT(RegGlobalFunc(script, asFUNCTIONPR native, asCALL_CDECL))
-
+#define GLOBAL_FUNC(name, result) AS_ASSERT(RegGlobalFunc(S + STRING(result) + " " + STRING(name) + "()" , asFUNCTION(name), asCALL_CDECL))
+#define GLOBAL_FUNC_ARG(name, scriptArg, nativeArg, result) AS_ASSERT(RegGlobalFunc(S + STRING(result) + " " + STRING(name) + STRING(scriptArg), asFUNCTIONPR(name, nativeArg, result), asCALL_CDECL))
 
 // Register an enumeration type
 #define START_ENUM(name) { C Str8 EN = STRING(name); AS_ASSERT(RegEnum(STRING(name))
